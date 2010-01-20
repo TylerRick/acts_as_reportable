@@ -173,19 +173,22 @@ module Ruport
                                :except => except,
                                :methods => methods) }.flatten
 
-        returning Ruport::Data::Table.new(
+        table = Ruport::Data::Table.new(
                                         :data => data,
                                         :column_names => aar_columns,
                                         :record_class => record_class,
                                         :filters => filters,
                                         :transforms => transforms
-        ) do |table|
-          table.instance_class do
-            define_method(:raw_data) do
-              data
-            end
-          end
-        end
+        )
+        return table, data
+#        ) do |table|
+#          table.instance_class do
+#            define_method(:raw_data) do
+#              data
+#            end
+#          end
+#          puts "1#{table.inspect}.respond_to?(:raw_data)=#{table.respond_to?(:raw_data)}"
+#        end
       end
 
       # Creates a Ruport::Data::Table from an ActiveRecord find_by_sql.
