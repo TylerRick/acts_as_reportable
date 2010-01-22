@@ -168,6 +168,7 @@ module Ruport
         end
 
         data = [find(number, options)].flatten
+        raw_data = data.dup
         data = data.map {|r| r.reportable_data(:include => includes,
                                :only => only,
                                :except => except,
@@ -180,7 +181,7 @@ module Ruport
                                         :filters => filters,
                                         :transforms => transforms
         )
-        return table, data
+        return table, raw_data
 #        ) do |table|
 #          table.instance_class do
 #            define_method(:raw_data) do
